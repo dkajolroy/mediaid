@@ -1,9 +1,9 @@
 'use client'
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { CiCircleRemove } from "react-icons/Ci";
 import { BiSolidDownArrow } from "react-icons/bi";
 import { FiSearch } from "react-icons/fi";
+import { IoMdClose } from "react-icons/io";
 
 const dropDownCategoryLists = [
   "arts & crafts",
@@ -177,7 +177,7 @@ const SearchBar = () => {
                 <p className="font-semibold">Search Names</p>
               </div>
               <div className="p-1 rounded-full cursor-pointer hover:bg-red-100">
-                <CiCircleRemove size={22} />
+                <IoMdClose size={22} />
               </div>
             </div>
           ))}

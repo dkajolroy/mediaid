@@ -1,7 +1,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { CiLocationOn } from "react-icons/Ci";
+import { IoLocationOutline } from "react-icons/io5";
 import CartButton from "./button/cartButton";
 import LoginButton from "./button/loginButton";
 import LoginModal from "./login/loginModal";
@@ -29,7 +29,7 @@ const Header = () => {
                         Deliver to <span className="font-bold text-teal-600">Bulbul</span>
                     </p>
                     <div className="flex items-center">
-                        <CiLocationOn size="1.5em" />
+                        <IoLocationOutline className=" text-gray-600" />
                         <p className="font-bold text-sm text-teal-500">
                             Gopalganj, Dhaka...
                         </p>

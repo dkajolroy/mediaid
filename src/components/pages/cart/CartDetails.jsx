@@ -4,7 +4,7 @@ import CartProduct from "@/components/product/cart/cartProduct";
 import { ToggleContext } from "@/provider/contextProvider";
 import { discountCalculator } from "@/utils/generator";
 import { useContext } from "react";
-import { CiSquareRemove } from "react-icons/Ci";
+import { IoMdClose } from 'react-icons/io';
 import { useSelector } from "react-redux";
 import CheckoutModal from "../checkout/checkoutModal";
 import Subtotal from "./subtotal";
@@ -29,8 +29,10 @@ const AbsoluteCartDetails = () => {
           <p className="text-xs">
             Free delivery above $999 order (outside Dhaka){" "}
           </p>
-          <button onClick={() => setData(s => ({ ...s, openCart: false }))}>
-            <CiSquareRemove size={35} />
+          <button
+            className="rounded border p-1 border-gray-200 shadow-md"
+            onClick={() => setData(s => ({ ...s, openCart: false }))}>
+            <IoMdClose />
           </button>
         </div>
         <p className="text-xs text-gray-700 px-1 mt-2">
