@@ -11,9 +11,12 @@ if (!MONGODB_URI) {
 }
 function dbConnect() {
   if (connection.readyState < 1) {
-    connect(MONGODB_URI)
-      .then(() => console.log("Connected to MongoDB"))
-      .catch((err) => console.log(err));
+    try {
+      connect(MONGODB_URI);
+      console.log("Database⚡:: ✅ Connected !!");
+    } catch (error) {
+      console.log("Database⚡:: ❌ Failed to connect !");
+    }
   } else {
     return;
   }

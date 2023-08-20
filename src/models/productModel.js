@@ -5,17 +5,22 @@ const productSchema = new Schema(
     title: { type: String, required: true },
     price: { type: Number, required: true },
     thumbnail: { type: String, required: true },
-    images: { type: String, required: true },
+    images: { type: Array, required: true },
     brand: { type: mongoose.Schema.ObjectId, ref: "brands" },
     category: {
       type: mongoose.Schema.ObjectId,
-      ref: "Categories",
+      ref: "categories",
+      required: true,
+    },
+    subcategory: {
+      type: mongoose.Schema.ObjectId,
+      ref: "subcategories",
       required: true,
     },
     description: { type: String, required: true },
     typeOfSelling: {
       type: String,
-      enum: ["new", "flash", "feature", "popular", "push"],
+      enum: ["new", "flash_sale", "feature", "popular", "best_sale", "push"],
       default: "new",
     },
     rating: {
@@ -29,8 +34,9 @@ const productSchema = new Schema(
     sku: {
       type: String,
       required: true,
+      unique: true,
     },
-    addedBy: { type: Schema.ObjectId, required: true, ref: "Admin" },
+    addedBy: { type: Schema.ObjectId, required: true, ref: "admins" },
     availableStock: { type: Number, required: true, default: 0 },
     tag: { type: Array, required: true },
     discountPercent: {

@@ -1,10 +1,15 @@
 'use client'
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const ImageBanner = ({ item }) => {
 
     const [activeImage, setActiveImage] = useState(item.thumbnail)
+    console.log(item.thumbnail)
+    useEffect(() => {
+        setActiveImage(item.thumbnail)
+    }, [item])
+
 
     return (
         <div>
@@ -14,7 +19,7 @@ const ImageBanner = ({ item }) => {
                     src={activeImage}
                     width={600}
                     height={600}
-                    className="w-full h-full object-contain rounded-sm"
+                    className="w-full h-full  object-contain rounded-sm"
                 />
             </div>
             {/* Product sort thumbs */}

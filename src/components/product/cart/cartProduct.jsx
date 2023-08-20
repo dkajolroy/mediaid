@@ -37,9 +37,9 @@ function CartProduct({ item }) {
                     <div>
                         <p className="text-xs text-gray-600">Maccons Limited</p>
                         <p className="text-xs mt-1 text-gray-700">
-                            <span className="text-teal-500 font-bold">1 * </span>
-                            <span className="text-teal-500 font-bold">100</span> s
-                            pack
+                            <span className="text-teal-500 font-bold">{findItem.quantity} x </span>
+                            <span className="text-teal-500 font-bold">{discountPrice} = </span>
+                            <span className="text-teal-500 font-bold">৳{findItem.quantity * discountPrice}</span>
                         </p>
                     </div>
                     <div>

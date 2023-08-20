@@ -4,7 +4,6 @@ import MobileNavBar from "@/components/mobile/MobileNavBar"
 import TabNavigation from "@/components/mobile/TabNavigation"
 import AbsoluteCart from "@/components/pages/cart/AbsoluteCart"
 import CartDetails from "@/components/pages/cart/CartDetails"
-import Sidebar from "@/components/sidebar/Sidebar"
 import ChildrenWrapper from "@/components/wrapper/childrenWrapper"
 
 function Layout({ children }) {
@@ -36,10 +35,7 @@ function Layout({ children }) {
             </div>
 
             {/*  Side bar and Body */}
-            <div className="flex">
-                <Sidebar />
-                <ChildrenWrapper>{children}</ChildrenWrapper>
-            </div>
+            <ChildrenWrapper>{children}</ChildrenWrapper>
         </>
     )
 }

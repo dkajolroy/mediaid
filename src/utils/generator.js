@@ -1,3 +1,4 @@
+// Regular Price and Discount percentage to discount price
 export const discountCalculator = (priceValue, discountPercentValue) => {
   const price = parseInt(priceValue);
   const discountPercent = parseInt(discountPercentValue);

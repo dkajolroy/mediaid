@@ -5,19 +5,18 @@ import RelatedProducts from "@/components/pages/viewProduct/RelatedProducts";
 import ProductDescription from "@/components/pages/viewProduct/productDescription";
 import ProductHandler from "@/components/pages/viewProduct/productHandler";
 import ProductInfo from "@/components/pages/viewProduct/productInfo";
-import { products } from "@/constant/dummyData";
 import { discountCalculator } from "@/utils/generator";
 import { notFound } from "next/navigation";
 import { TbCurrencyTaka } from "react-icons/tb";
 
 async function Page({ searchParams }) {
+    // Check search params available or not
     if (!searchParams.product) {
         notFound()
     }
-    //  find data by id  
-    const sku = searchParams.product
-    const product = products.find((item) => item.sku === sku);
-
+    const url = `/api/product?sku=${searchParams.product}`
+    const product = await getProduct(url) // Get SSR product
+    // check product 
     if (!product) {
         notFound()
     }
@@ -80,3 +79,22 @@ async function Page({ searchParams }) {
 }
 
 export default Page
+
+// SSR Render data request methods
+async function getProduct(pathname) {
+    try {
+        // get product
+        const result = await fetch(process.env.NEXTAUTH_URL + pathname, {
+            method: "GET",
+        });
+        const data = await result.json(); // parse to json
+        // checking actual data
+        if (data?.success) {
+            return data?.product;
+        } else {
+            return null;
+        }
+    } catch (error) {
+        return null;
+    }
+}

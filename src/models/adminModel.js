@@ -1,19 +1,18 @@
 const { Schema, model, mongoose, models } = require("mongoose");
 
-const userSchema = new Schema(
+const AdminSchema = new Schema(
   {
     name: { type: String, required: true },
     dateOfBirth: { type: Date },
     phone: { type: String, default: "" },
-    email: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    typeOfAccess: { type: String, enum: ["manager", "admin"] },
-    city: { type: String, required: true },
+    typeOfAccess: { type: String, enum: ["manager", "admin", "stuff"] },
     gender: { type: String, enum: ["male", "female", "other"], required: true },
   },
   { timestamps: true }
 );
 
-const userModel = models.users || model("users", userSchema);
+const adminModel = models.admins || model("admins", AdminSchema);
 
-export default userModel;
+export default adminModel;

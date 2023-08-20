@@ -1,10 +1,15 @@
 import { fetcher } from "@/utils/api_config";
+import useSWR from "swr";
 
-export const useCartProduct = () => {
-  const { data, isLoading, error } = useSWR("/", fetcher);
-
+export const useProduct = (typesOfSale) => {
+  // typesOfSale = flash_sale | push | best_sale | popular | feature | new | undefined
+  const { data, isLoading, error } = useSWR(
+    `/api/products?types=${typesOfSale}`,
+    fetcher
+  );
+  // Return Response
   return {
-    product: data,
+    products: data?.products,
     isLoading,
     error,
   };

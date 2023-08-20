@@ -1,9 +1,11 @@
 "use client"
+import ProductLoader from '@/components/pages/home/loader/productLoader';
 import BestSellingProduct from "@/components/product/bestSale/BestSellingProduct";
-import { products } from "@/constant/dummyData";
+import { useProduct } from "@/hooks/useProducts";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 const BestSelling = () => {
+  const { isLoading, products } = useProduct("best_sale")
 
   return (
     <div className="px-1 mt-4">
@@ -31,12 +33,19 @@ const BestSelling = () => {
           },
         }}
         spaceBetween={10}
-        className="mySwiper my-1">
-        {products.slice(4, 30).map((item, i) => (
-          <SwiperSlide key={i}>
-            <BestSellingProduct item={item} />
-          </SwiperSlide>
-        ))}
+        className=" my-1">
+        {
+          isLoading ?
+            [...Array(10).keys()].map((i) => (
+              <SwiperSlide key={i}>
+                <ProductLoader />
+              </SwiperSlide>
+            )) : products ?
+              products.slice(0, 10).map((item, i) => (
+                <SwiperSlide key={i}>
+                  <BestSellingProduct item={item} />
+                </SwiperSlide>
+              )) : <span>Something want wrong</span>}
       </Swiper>
       {/* Column 2 */}
       <Swiper
@@ -54,12 +63,19 @@ const BestSelling = () => {
           },
         }}
         spaceBetween={10}
-        className="mySwiper my-1">
-        {products.slice(10, 30).map((item, i) => (
-          <SwiperSlide key={i}>
-            <BestSellingProduct item={item} />
-          </SwiperSlide>
-        ))}
+        className=" my-1">
+        {
+          isLoading ?
+            [...Array(10).keys()].map((i) => (
+              <SwiperSlide key={i}>
+                <ProductLoader />
+              </SwiperSlide>
+            )) : products ?
+              products.slice(10, 20).map((item, i) => (
+                <SwiperSlide key={i}>
+                  <BestSellingProduct item={item} />
+                </SwiperSlide>
+              )) : <span>Something want wrong</span>}
       </Swiper>
 
     </div>

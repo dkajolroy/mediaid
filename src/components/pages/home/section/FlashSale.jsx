@@ -1,10 +1,13 @@
 "use client"
-import { products } from "@/constant/dummyData";
 
 import FlashSellingProduct from "@/components/product/flashSale/FlashSellingProduct";
+import { useProduct } from "@/hooks/useProducts";
 import { Swiper, SwiperSlide } from "swiper/react";
+import SlideSection from "../loader/productLoader";
 
 const FlashSale = () => {
+  const { isLoading, products } = useProduct("flash_sale")
+
   return (
     <div className="px-1 my-8">
       <div className="flex items-end justify-between">
@@ -39,11 +42,19 @@ const FlashSale = () => {
           },
         }}
         className="flash-sell">
-        {products.map((item, i) => (
-          <SwiperSlide key={i}>
-            <FlashSellingProduct item={item} />
-          </SwiperSlide>
-        ))}
+        {
+          isLoading ?
+            [...Array(10).keys()].map((i) => (
+              <SwiperSlide key={i}>
+                <SlideSection />
+              </SwiperSlide>
+            )) :
+            products ?
+              products.map((item, i) => (
+                <SwiperSlide key={i}>
+                  <FlashSellingProduct item={item} />
+                </SwiperSlide>
+              )) : <span>Something want wrong</span>}
       </Swiper>
     </div>
   );

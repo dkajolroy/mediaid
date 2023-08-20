@@ -1,13 +1,13 @@
 import dbConnect from "@/config/dbConfig";
-import categoriesModel from "@/models/categoryModel";
+import subcategoriesModel from "@/models/subcategoryModel";
 import { NextResponse } from "next/server";
 dbConnect();
 
 // Get Categories
 export async function GET() {
   try {
-    const categories = await categoriesModel.find();
-    return NextResponse.json({ success: true, categories }, { status: 400 });
+    const subcategories = await subcategoriesModel.find();
+    return NextResponse.json({ success: true, subcategories }, { status: 400 });
   } catch (error) {
     return NextResponse.json(
       { success: false, message: error?.message || "Something want wrong !" },
@@ -24,21 +24,21 @@ export async function POST(req) {
   const input = await req.json();
   try {
     // Check input data
-    if (!input.name || !input.image || !input.createdBy) {
+    if (!input.name || !input.image || !input.category || !input.createdBy) {
       return NextResponse.json(
         { success: false, message: "Invalid credentials !" },
         { status: 400 }
       );
     }
     // create categories
-    await categoriesModel.create(input);
+    await subcategoriesModel.create(input);
     return NextResponse.json(
-      { success: true, message: "Category added successfully !" },
+      { success: true, message: "Subcategory added successfully !" },
       { status: 201 }
     );
   } catch (error) {
     return NextResponse.json(
-      { success: false, message: error.message || "Something want wrong !" },
+      { success: false, message: error?.message || "Something want wrong !" },
       { status: 400 }
     );
   }

@@ -1,5 +1,5 @@
 
-import { brands } from "@/constant/dummyData";
+import { dummyBrands } from "@/constant/insertBrands";
 import Image from "next/image";
 import Marquee from "react-fast-marquee";
 
@@ -11,7 +11,7 @@ function Brands() {
             </h4>
             <div className="mt-4">
                 <Marquee speed={40} pauseOnHover={true}>
-                    {brands.map((brand, i) => (
+                    {dummyBrands.map((brand, i) => (
                         <div
                             key={i}
                             className="w-24 md:w-28 h-16 md:h-20 p-2 shadow-md overflow-hidden duration-200 ml-4 border border-gray-300 rounded-lg bg-white"

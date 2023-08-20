@@ -10,17 +10,18 @@ function FlashSellingProduct({ item }) {
 
 
     return (
-        <div>
+        <div className=" shadow-sm">
             <Link
                 href={{ pathname: "/view", query: { product: item.sku } }}
-                className="bg-white flex flex-col rounded-sm shadow-sm p-1">
+                className="bg-white flex flex-col rounded-sm p-1">
                 <div className="overflow-hidden">
                     <Image
                         src={item.thumbnail}
                         alt="Product"
                         width={200}
                         height={200}
-                        className="object-cover hover:scale-125 transition  w-full h-[180px] rounded-sm "
+                        className="object-cover  hover:scale-125 transition  w-full h-[180px] rounded-sm "
+
                     />
                 </div>
                 <div>

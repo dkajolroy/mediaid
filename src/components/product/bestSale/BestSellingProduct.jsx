@@ -2,8 +2,7 @@
 import { discountCalculator } from "@/utils/generator";
 import Image from "next/image";
 import Link from "next/link";
-import { BsCart } from "react-icons/bs";
-import { FiEye, FiHeart } from "react-icons/fi";
+import BestSellingButton from "./bestSellingButton";
 
 function BestSellingProduct({ item }) {
     const discountPrice = discountCalculator(item.price, item.discountPercent)
@@ -21,17 +20,7 @@ function BestSellingProduct({ item }) {
                     className="object-cover hover:scale-125 transition w-full h-32 rounded-sm"
                 />
             </div>
-            <div className="flex items-center justify-center gap-3 my-2">
-                <button className="bg-yellow-500 p-1 rounded-full hover:bg-slate-700 duration-300">
-                    <FiEye className="text-lg text-white" />
-                </button>
-                <button className="bg-yellow-500 p-1 rounded-full hover:bg-slate-700 duration-300">
-                    <FiHeart className="text-lg text-white" />
-                </button>
-                <button className="bg-yellow-500 p-1 rounded-full hover:bg-slate-700 duration-300">
-                    <BsCart className="text-lg text-white" />
-                </button>
-            </div>
+            <BestSellingButton />
             <div>
                 <h4 className="text-[12px] mt-1 tracking-wide">
                     {item.title.length > 20
