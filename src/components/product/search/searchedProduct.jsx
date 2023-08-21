@@ -1,16 +1,15 @@
 import { discountCalculator } from "@/utils/generator"
 import Image from "next/image"
 import Link from "next/link"
-import { IoMdClose } from "react-icons/io"
 
-function SearchedProduct({ item }) {
+function SearchedProduct({ item, setIsSearchList }) {
     const discountPrice = discountCalculator(item.price, item.discountPercent)
 
     return (
         <div
             className="flex p-1 border-b rounded  items-center justify-between hover:bg-gray-100 cursor-pointer"
         >
-            <Link href={{ pathname: "/view", query: { product: item.sku } }} className="flex w-full items-center gap-2">
+            <Link onClick={() => setIsSearchList(false)} href={{ pathname: "/view", query: { product: item.sku } }} className="flex w-full items-center gap-2">
                 <Image
                     src={item.thumbnail}
                     alt="image"
@@ -41,8 +40,8 @@ function SearchedProduct({ item }) {
                     </div>
                 </div>
             </Link>
-            <div className="p-1 rounded-full cursor-pointer hover:bg-red-100">
-                <IoMdClose size={22} />
+            <div className="h-full px-5 transition rounded cursor-pointer hover:text-[#60B8A6]">
+                <span className="text-sm ">View</span>
             </div>
         </div>
     )

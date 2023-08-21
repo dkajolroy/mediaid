@@ -31,7 +31,9 @@ const SearchBar = () => {
       }, 2000); // Change the placeholder every 2 seconds (adjust as needed)
       return () => clearInterval(interval);
     }
-  }, [categories]);
+
+  }, [categories, isSearchList]);
+
 
   // Search handler 
   const [searchData, setSearchData] = useState("")
@@ -56,36 +58,36 @@ const SearchBar = () => {
               </p>
               <BiSolidDownArrow className="inline-block" size={10} />
             </div>
-            {
-              !isLoading && categories && categories.length ? (
-                <ul
-                  tabIndex={0}
-                  className="dropdown-content z-50 p-2 bg-white w-52 shadow-2xl"
-                >
-                  <li
-                    onClick={() => {
-                      setSelectedCategory(defaultCategory)
-                      inputRef.current?.focus()
-                    }}
-                    className="cursor-pointer px-1 py-1 text-black hover:bg-[#60B8A6] hover:text-white capitalize text-sm"
+            <div onClick={(e) => e.stopPropagation()}>
+              {
+                !isLoading && categories && categories.length ? (
+                  <ul
+                    tabIndex={0}
+                    className="dropdown-content z-50 p-2 bg-white w-52 shadow-2xl"
                   >
-                    {defaultCategory.name}
-                  </li>
-                  {categories.map((list, i) => (
                     <li
                       onClick={() => {
-                        setSelectedCategory(list)
+                        setSelectedCategory(defaultCategory)
                         inputRef.current?.focus()
-                      }
-                      }
-                      key={i}
-                      className="cursor-pointer px-1 py-1 text-black hover:bg-[#60B8A6] hover:text-white capitalize text-sm"
-                    >
-                      {list.name}
+                      }}
+                      className="cursor-pointer px-1 py-1 text-black hover:bg-[#60B8A6] hover:text-white capitalize text-sm">
+                      {defaultCategory.name}
                     </li>
-                  ))}
-                </ul>
-              ) : null}
+                    {categories.map((list, i) => (
+                      <li
+                        onClick={() => {
+                          setSelectedCategory(list)
+                          inputRef.current?.focus()
+                        }}
+                        key={i}
+                        className="cursor-pointer px-1 py-1 text-black hover:bg-[#60B8A6] hover:text-white capitalize text-sm"
+                      >
+                        {list.name}
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+            </div>
           </div>
           {/* Search Input */}
           <input
@@ -111,9 +113,9 @@ const SearchBar = () => {
                   <SearchProductLoader key={i} />
                 ))
                 : products && products.length ? products.map((item, i) => (
-                  <SearchedProduct key={i} item={item} />
+                  <SearchedProduct setIsSearchList={setIsSearchList} key={i} item={item} />
                 )
-                ) : <span className="text-center">Product not found</span>}
+                ) : <span className="text-center">{!searchData.trim().length ? "Please type to search !" : "Product not found"}</span>}
           </div>
         )}
       </div>{
