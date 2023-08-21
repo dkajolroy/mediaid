@@ -3,7 +3,7 @@
 import FlashSellingProduct from "@/components/product/flashSale/FlashSellingProduct";
 import { useProduct } from "@/hooks/useProducts";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SlideSection from "../loader/productLoader";
+import SlideSection from "../../../loader/productLoader";
 
 const FlashSale = () => {
   const { isLoading, products } = useProduct("flash_sale")

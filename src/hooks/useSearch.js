@@ -1,17 +1,17 @@
 import { fetcher } from "@/utils/api_config";
 import useSWR from "swr";
 
-export const useProduct = (typesOfSale) => {
-  // typesOfSale = flash_sale | push | best_sale | popular | feature | new | undefined
+export const useSearch = (text, category) => {
+  // Category ID and search Text
   const { data, isLoading, error } = useSWR(
-    `/api/products?types=${typesOfSale}`,
+    `/api/search?keyword=${text}&category=${category}`,
     fetcher,
     { revalidateOnFocus: false }
   );
   // Return Response
   return {
     products: data?.products,
-    isLoading,
+    loading: isLoading,
     error,
   };
 };

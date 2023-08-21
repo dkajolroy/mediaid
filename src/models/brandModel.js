@@ -4,7 +4,6 @@ const brandSchema = new Schema(
   {
     name: { type: String, required: true },
     logo: { type: String, required: true },
-    address: { type: String, required: true },
   },
   { timestamps: true }
 );

@@ -1,14 +1,14 @@
 import { fetcher } from "@/utils/api_config";
 import useSWR from "swr";
 
-export const useBrands = () => {
+export const useCategories = () => {
   // request to brands apis
-  const { data, isLoading, error } = useSWR(`/api/brands`, fetcher, {
+  const { data, isLoading, error } = useSWR(`/api/categories`, fetcher, {
     revalidateOnFocus: false,
   });
   // Return Response
   return {
-    products: data?.brands,
+    categories: data?.categories,
     isLoading,
     error,
   };

@@ -1,5 +1,5 @@
 "use client"
-import ProductLoader from '@/components/pages/home/loader/productLoader';
+import ProductLoader from '@/components/loader/productLoader';
 import BestSellingProduct from "@/components/product/bestSale/BestSellingProduct";
 import { useProduct } from "@/hooks/useProducts";
 import { Swiper, SwiperSlide } from "swiper/react";

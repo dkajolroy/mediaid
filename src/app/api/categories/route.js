@@ -7,7 +7,7 @@ dbConnect();
 export async function GET() {
   try {
     const categories = await categoriesModel.find();
-    return NextResponse.json({ success: true, categories }, { status: 400 });
+    return NextResponse.json({ success: true, categories });
   } catch (error) {
     return NextResponse.json(
       { success: false, message: error?.message || "Something want wrong !" },
