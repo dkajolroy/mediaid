@@ -9,7 +9,18 @@ export async function GET(req) {
 
   try {
     // find single product By SKU
-    const product = await productModel.findOne({ sku });
+    const product = await productModel
+      .findOne({ sku })
+      .populate({
+        path: "category",
+        model: "categories",
+        select: "name",
+      })
+      .populate({
+        path: "brand",
+        model: "brands",
+        select: "name",
+      });
     return NextResponse.json({ success: true, product });
   } catch (error) {
     return NextResponse.json(

@@ -1,30 +1,43 @@
 'use client'
 import { useSession } from 'next-auth/react'
-import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
 
 function LoginButton() {
-    const { status } = useSession()
+    const { status, data } = useSession()
 
     const query = useSearchParams()
     const isOpen = query.get("signin")
 
     useEffect(() => {
-
         if (isOpen === "user" && status === "unauthenticated") {
             window.login_modal_1.showModal()
         }
-
     }, [isOpen, status])
-    return (
-        <Link onClick={() => window.login_modal_1.showModal()} href={{ pathname: "/", query: { signin: "user" } }}
-            className="cursor-pointer hover:outline rounded-sm outline-teal-400 p-[2px] ">
-            <p className="font-semibold text-sm text-slate-600">Hello, Bulbul</p>
+    const { replace, push } = useRouter()
 
-            <p className="font-bold text-base text-teal-500">Account & Lists</p>
-        </Link>
-    )
+    if (data && status === "authenticated") {
+        return (
+            <div onClick={() => push("/account")}
+                className="cursor-pointer hover:outline rounded-sm outline-teal-400 p-[2px] ">
+                <p className="font-semibold text-sm text-slate-600">Hello, {data?.user?.name}</p>
+
+                <p className="font-bold text-base text-teal-500">Account & Lists</p>
+            </div>
+        )
+    } else {
+        return (
+            <div onClick={() => {
+                replace(`/?signin=user`)
+                window.login_modal_1.showModal()
+            }}
+                className="cursor-pointer hover:outline rounded-sm outline-teal-400 p-[2px] ">
+                <p className="font-semibold text-sm text-slate-600">Sign in/Register</p>
+
+                <p className="font-bold text-base text-teal-500">Account & Lists</p>
+            </div>
+        )
+    }
 }
 
 export default LoginButton

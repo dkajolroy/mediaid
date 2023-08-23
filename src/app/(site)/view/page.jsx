@@ -5,6 +5,7 @@ import RelatedProducts from "@/components/pages/viewProduct/RelatedProducts";
 import ProductDescription from "@/components/pages/viewProduct/productDescription";
 import ProductHandler from "@/components/pages/viewProduct/productHandler";
 import ProductInfo from "@/components/pages/viewProduct/productInfo";
+import { getProducts, getReviews } from "@/utils/api_config";
 import { discountCalculator } from "@/utils/generator";
 import { notFound } from "next/navigation";
 import { TbCurrencyTaka } from "react-icons/tb";
@@ -15,11 +16,16 @@ async function Page({ searchParams }) {
         notFound()
     }
     const url = `/api/product?sku=${searchParams.product}`
-    const product = await getProduct(url) // Get SSR product
+    const product = await getProducts(url) // Get SSR product
+    // console.log(product)
+
     // check product 
     if (!product) {
         notFound()
     }
+    const reviewUrl = `/api/review?product=${product._id}`
+    const getReviewData = await getReviews(reviewUrl)
+
     const discountPrice = discountCalculator(product.price, product.discountPercent)
     return (
         <div className="lg:grid grid-cols-5 relative w-full gap-3 mt-3">
@@ -60,9 +66,12 @@ async function Page({ searchParams }) {
                 </div>
             </div>
             <div className="col-start-3 col-end-6 px-3 md:px-5 lg:px-0 mt-5 lg:mt-0">
-                <ProductInfo item={product} />
+                <ProductInfo
+                    item={product}
+                    totalRating={getReviewData.totalRatings}
+                    totalReview={getReviewData.totalReview} />
                 <ProductDescription item={product} />
-                <ProductReviews item={product} />
+                <ProductReviews item={product} totalRating={getReviewData.totalRatings} getReviewData={getReviewData} />
                 <ProductQuestionAndAnswer item={product} />
                 <RelatedProducts item={product} />
             </div>
@@ -80,21 +89,3 @@ async function Page({ searchParams }) {
 
 export default Page
 
-// SSR Render data request methods
-async function getProduct(pathname) {
-    try {
-        // get product
-        const result = await fetch(process.env.NEXTAUTH_URL + pathname, {
-            method: "GET",
-        });
-        const data = await result.json(); // parse to json
-        // checking actual data
-        if (data?.success) {
-            return data?.product;
-        } else {
-            return null;
-        }
-    } catch (error) {
-        return null;
-    }
-}

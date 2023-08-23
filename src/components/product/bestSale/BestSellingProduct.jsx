@@ -2,26 +2,31 @@
 import { discountCalculator } from "@/utils/generator";
 import Image from "next/image";
 import Link from "next/link";
+import { BiStar } from "react-icons/bi";
 import BestSellingButton from "./bestSellingButton";
 
 function BestSellingProduct({ item }) {
     const discountPrice = discountCalculator(item.price, item.discountPercent)
     return (
-        <Link
-            href={{ pathname: "/view", query: { product: item.sku } }}
-            className="bg-white rounded-sm shadow-sm p-1 my-2 mx-1">
-            <div className="overflow-hidden">
-                <Image
-                    src={item.thumbnail}
-                    alt="item"
-                    width={200}
-                    height={200}
-                    priority={true}
-                    className="object-cover hover:scale-125 transition w-full h-32 rounded-sm"
-                />
-            </div>
-            <BestSellingButton />
-            <div>
+        <div
+            className="bg-white rounded-sm shadow-sm p-1 my-2 mx-1"
+        >
+            <Link
+                href={{ pathname: "/view", query: { product: item.sku } }}>
+                <div className="overflow-hidden">
+                    <Image
+                        src={item.thumbnail}
+                        alt="item"
+                        width={200}
+                        height={200}
+                        priority={true}
+                        className="object-cover hover:scale-125 transition w-full h-32 rounded-sm"
+                    />
+                </div>
+            </Link>
+            <BestSellingButton item={item} />
+            <Link
+                href={{ pathname: "/view", query: { product: item.sku } }}>
                 <h4 className="text-[12px] mt-1 tracking-wide">
                     {item.title.length > 20
                         ? item.title.slice(0, 20) + "..."
@@ -40,18 +45,17 @@ function BestSellingProduct({ item }) {
                             {discountPrice}৳
                         </span>
                     </div>
-                    {/* <Rating
-                        key={item.sku}
-                        placeholderRating={4.5}
-                        emptySymbol={<AiTwotoneStar className="text-[10px]" />}
-                        placeholderSymbol={
-                            <AiTwotoneStar className="text-[10px] text-yellow-600" />
-                        }
-                        readonly
-                    /> */}
+                    <div className="flex px-1 rounded bg-[#60b8a6] text-white text-sm items-center gap-1">
+                        <span>
+                            {item.rating}
+                        </span>
+                        <span>
+                            <BiStar />
+                        </span>
+                    </div>
                 </div>
-            </div>
-        </Link>
+            </Link>
+        </div>
     )
 }
 

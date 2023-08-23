@@ -29,21 +29,22 @@ const ProductDescription = ({ item }) => {
                             SKU: {item.sku}
                         </p>
                         <p className="text-base leading-4 mt-2 text-gray-600">
-                            category: {item.category}
+                            category: {item.category?.name}
                         </p>
                         <p className="text-base leading-4 mt-2 text-gray-600">
                             tags:
-                            {/* {item.tags.map((tag, index) => (
-                                <Fragment key={index}>
-                                    <span className="text-sm py-px px-1 rounded bg-slate-300">
-                                        {tag}
-                                    </span>
-                                    ,{" "}
-                                </Fragment>
-                            ))} */}
+                            <div className="flex items-center gap-1 my-1">
+                                {item.tag.map((tag, index) => (
+                                    <div key={index}>
+                                        <span className="text-sm py-px px-1 rounded bg-slate-300">
+                                            {tag}
+                                        </span>
+                                    </div>
+                                ))}
+                            </div>
                         </p>
                         <p className="text-base leading-4 mt-2 text-gray-600">
-                            Brand :{item.brandName}
+                            Brand :{item.brand?.name}
                         </p>
                     </div>
                     <div className=" ">

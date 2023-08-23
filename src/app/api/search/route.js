@@ -8,7 +8,7 @@ export async function GET(req) {
   const category = req.nextUrl.searchParams.get("category");
 
   try {
-    if (category) {
+    if (category && keyword) {
       // Search products by title and tags from category
       const products = await productModel
         .find({

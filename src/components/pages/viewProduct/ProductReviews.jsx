@@ -1,6 +1,6 @@
 "use client"
 
-const ProductReviews = () => {
+const ProductReviews = ({ getReviewData, totalRating, item }) => {
   return (
     <div className="border p-2">
       <div>
@@ -11,7 +11,7 @@ const ProductReviews = () => {
         <div className="flex items-start justify-between pt-8">
           <div>
             <p className="text-6xl text-neutral-700">
-              4.3<span className="text-2xl text-gray-500">/5</span>
+              {item.rating}<span className="text-2xl text-gray-500">/5</span>
             </p>
             {/* Client Side render */}
             {/* <Rating
@@ -21,7 +21,7 @@ const ProductReviews = () => {
               placeholderSymbol={<BsFillStarFill color="#FACA51" size={25} />}
               readonly
             /> */}
-            <p className="text-gray-500">82 Ratings</p>
+            <p className="text-gray-500">{totalRating} Ratings</p>
           </div>
           <div className="flex items-start gap-x-4 pr-10">
             <div className="flex flex-col-reverse ">

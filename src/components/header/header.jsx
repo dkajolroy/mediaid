@@ -1,9 +1,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { IoLocationOutline } from "react-icons/io5";
 import CartButton from "./button/cartButton";
 import LoginButton from "./button/loginButton";
+import UserInfo from "./logedInfo/userInfo";
 import LoginModal from "./login/loginModal";
 import SearchBar from "./search/SearchBar";
 const Header = () => {
@@ -23,18 +23,7 @@ const Header = () => {
                         />
                     </Link>
                 </div>
-                <div
-                    className=" cursor-pointer hover:outline rounded-sm outline-teal-400 p-[2px] ">
-                    <p className="font-semibold text-sm text-slate-600">
-                        Deliver to <span className="font-bold text-teal-600">Bulbul</span>
-                    </p>
-                    <div className="flex items-center">
-                        <IoLocationOutline className=" text-gray-600" />
-                        <p className="font-bold text-sm text-teal-500">
-                            Gopalganj, Dhaka...
-                        </p>
-                    </div>
-                </div>
+                <UserInfo />
             </div>
             <div className="grow">
                 <SearchBar />

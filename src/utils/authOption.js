@@ -6,8 +6,8 @@ export const authOption = {
   adapter: MongoDBAdapter(clientPromise),
   providers: [
     GoogleProvider({
-      clientId: process.env.Google_Client_ID,
-      clientSecret: process.env.Google_Client_Secret,
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
 
     CredentialsProvider({
@@ -31,18 +31,18 @@ export const authOption = {
     signIn: "/?signin=user",
   },
   session: { strategy: "jwt" },
-  callbacks: {
-    jwt({ token, user }) {
-      if (user) {
-        token.id = user.id;
-      }
-      return token;
-    },
-    session({ session, token }) {
-      if (session.user) {
-        session.user.id = token.id;
-      }
-      return session;
-    },
-  },
+  // callbacks: {
+  //   jwt({ token, user }) {
+  //     if (user) {
+  //       token.id = user.id;
+  //     }
+  //     return token;
+  //   },
+  //   session({ session, token }) {
+  //     if (session.user) {
+  //       session.user.id = token.id;
+  //     }
+  //     return session;
+  //   },
+  // },
 };

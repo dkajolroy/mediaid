@@ -1,10 +1,11 @@
 import BestSellingProduct from "@/components/product/bestSale/BestSellingProduct";
+import { getProducts } from "@/utils/api_config";
 
 const RelatedProducts = async ({ item }) => {
 
   const tags = item.tag.join('-') // tags= [a,b,c] to "a-b-c"
   const url = `/api/related?tags=${tags}`
-  const products = await getProduct(url) // Return null or Product[]
+  const products = await getProducts(url) // Return null or Product[]
 
   return (
     <>
@@ -30,24 +31,3 @@ const RelatedProducts = async ({ item }) => {
 export default RelatedProducts;
 
 
-
-
-// SSR Render data request methods
-async function getProduct(pathname) {
-  try {
-    // get product
-    const result = await fetch(process.env.NEXTAUTH_URL + pathname, {
-      method: "GET",
-    });
-    const data = await result.json(); // parse to json
-    // checking actual data
-    // console.log(data);
-    if (data?.success) {
-      return data?.product;
-    } else {
-      return null;
-    }
-  } catch (error) {
-    return null;
-  }
-}
