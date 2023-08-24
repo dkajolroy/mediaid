@@ -31,7 +31,7 @@ const ProductDescription = ({ item }) => {
                         <p className="text-base leading-4 mt-2 text-gray-600">
                             category: {item.category?.name}
                         </p>
-                        <p className="text-base leading-4 mt-2 text-gray-600">
+                        <div className="text-base leading-4 mt-2 text-gray-600">
                             tags:
                             <div className="flex items-center gap-1 my-1">
                                 {item.tag.map((tag, index) => (
@@ -42,26 +42,15 @@ const ProductDescription = ({ item }) => {
                                     </div>
                                 ))}
                             </div>
-                        </p>
+                        </div>
                         <p className="text-base leading-4 mt-2 text-gray-600">
-                            Brand :{item.brand?.name}
+                            Brand :{item.brand?.name || "No brand"}
                         </p>
                     </div>
                     <div className=" ">
                         <h3 className="font-bold mt-3 mb-2 ">Summary :</h3>
                         <p className=" text-base lg:leading-tight leading-normal text-gray-600 ">
-                            Digital ECG Machine 1201 is AN cardiograph checking physiological
-                            operate by recording activity wave shape of heart organic
-                            phenomenon, it will give basic info for diagnosing and treatment
-                            of the many heart diseases, analyze and grasp every cardiac
-                            arrhythmia, diagnose several cardiovascular diseases, that helps
-                            recognize the influence to the heart muscle arising from the
-                            turbulence of some medication and solution and acid-base
-                            imbalance, therefore, ECG takes an important part in heart disease
-                            check. Digital ECG Machine 1201 is a full-digital and
-                            high-performance 12-channel electrocardiograph which prints by the
-                            thermal printing system, fashion design, it’s easy to carry, and
-                            it is applicable for use in hospitals, ordinary lab, clinic and
+                            {item.description}
                         </p>
                     </div>
                 </div>

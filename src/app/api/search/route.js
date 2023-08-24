@@ -34,8 +34,8 @@ export async function GET(req) {
       return NextResponse.json({ success: true, products });
     }
     return NextResponse.json(
-      { message: "No keyword founds !", success: false, products: [] },
-      { status: 400 }
+      { message: "No keyword founds !", success: true, products: [] },
+      { status: 200 }
     );
   } catch (error) {
     return NextResponse.json(

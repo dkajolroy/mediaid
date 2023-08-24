@@ -1,9 +1,12 @@
 'use client'
+import Rating from "@/components/global/Rating";
 import { BiLike, BiSort } from "react-icons/bi";
 import { FiFilter } from "react-icons/fi";
-import { GoShieldCheck } from "react-icons/go";
+import { GoShield, GoShieldCheck } from "react-icons/go";
+import TimeAgo from 'timeago-react';
 
-const ProductQuestionAndAnswer = () => {
+const ProductQuestionAndAnswer = ({ getReviewData }) => {
+  const reviews = getReviewData?.reviews
   return (
     <div className="border mt-2">
       <div className="flex items-center justify-between p-2 border-b">
@@ -24,46 +27,55 @@ const ProductQuestionAndAnswer = () => {
         </div>
       </div>
       <div className="mt-6">
-        {[1, 2].map((reviewItem) => (
-          <div key={reviewItem} className="border-t p-2">
-            <div className="flex items-start justify-between ">
-              <div>
-                {/* Client Side render */}
-                {/* <Rating
-                  placeholderRating={2.5}
-                  emptySymbol={<BsFillStarFill color="#EFF0F5" size={18} />}
-                  placeholderSymbol={
-                    <BsFillStarFill color="#FACA51" size={18} />
-                  }
-                  readonly
-                /> */}
-                <div className="flex items-center gap-2">
-                  <p className="text-sm text-slate-400">
-                    by
-                    <span className="font-medium text-neutral-500 pl-0.5">
-                      Munim Rahman
+        {
+          reviews && reviews.length ?
+            reviews.map((reviewItem, i) => {
+              const user = reviewItem.user
+              return (
+                <div key={i} className="border-t p-2">
+                  <div className="flex items-start justify-between ">
+                    <div>
+                      {/* Client Side render */}
+                      <Rating total={reviewItem.noOfStar} />
+                      <div className="flex items-center gap-2">
+                        <p className="text-sm text-slate-400">
+                          by
+                          <span className="font-medium text-neutral-500 pl-0.5">
+                            {user ? user.name : "Unknown"}
+                          </span>
+                        </p>
+                        {user && user.paymentVerified ?
+                          <GoShieldCheck color="green" /> : <GoShield color="red" />
+                        }
+                        {
+                          user && user.paymentVerified ?
+                            <span className="text-sm text-green-500">Verified Purchase</span>
+                            : <span className="text-sm text-red-500">Unverified</span>}
+                      </div>
+                    </div>
+                    <span className="text-sm text-neutral-500">
+                      <TimeAgo
+                        datetime={reviewItem.createdAt}
+                      />
                     </span>
-                  </p>
-                  <GoShieldCheck color="green" />
-                  <p className="text-sm text-green-500">Verified Purchase</p>
+                  </div>
+                  <div className="mt-2">
+                    <p>
+                      {
+                        reviewItem.comment
+                      }
+                    </p>
+                    <div className="flex items-center gap-2 my-1"></div>
+                    <p className="py-2 ">
+                      <BiLike size={25} className="cursor-pointer" />
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <p className="text-sm text-neutral-500">2 weeks ago</p>
-            </div>
-            <div className="mt-2">
-              <p>
-                সেলার কে সাদা দিতে বলা হয়েছিল, হলুদ দিয়েছে! খুবই ঠুনকো একটা
-                জিনিস। অতিমুল্যায়িত করা! এর দাম আরো অনেক কম হওয়া উচিত। ব্রাশ
-                খাপে খাপে খুব শক্ত ভাবে বসে না। তাই পড়ে যাওয়ার আশংকা থেকে যায়।
-                আঠাটা ভাল। টাইলসের সাথে শক্ত ভাবে আটকে থাকে।
-              </p>
-              <div className="flex items-center gap-2 my-1"></div>
-              <p className="py-2 ">
-                <BiLike size={25} className="cursor-pointer" />
-              </p>
-            </div>
-          </div>
-        ))}
+              )
+            }
+            ) :
+            <span className="block text-center my-5 text-gray-500">Reviews Not found</span>
+        }
       </div>
 
     </div>

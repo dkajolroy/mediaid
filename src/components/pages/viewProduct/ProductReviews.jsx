@@ -1,12 +1,13 @@
-"use client"
 
-const ProductReviews = ({ getReviewData, totalRating, item }) => {
+import Rating from "@/components/global/Rating";
+
+const ProductReviews = ({ totalRating, item }) => {
+
   return (
     <div className="border p-2">
       <div>
         <h2>
-          Rating & Reviews of সিলিকা জেল বাথ তোয়ালে ব্যাক স্ট্রিপ বেল্ট
-          বাথরুমের সরঞ্জাম - towel
+          Rating & Reviews of {item.title}
         </h2>
         <div className="flex items-start justify-between pt-8">
           <div>
@@ -14,29 +15,12 @@ const ProductReviews = ({ getReviewData, totalRating, item }) => {
               {item.rating}<span className="text-2xl text-gray-500">/5</span>
             </p>
             {/* Client Side render */}
-            {/* <Rating
-              className="mt-2"
-              placeholderRating={4.3}
-              emptySymbol={<BsFillStarFill color="#EFF0F5" size={25} />}
-              placeholderSymbol={<BsFillStarFill color="#FACA51" size={25} />}
-              readonly
-            /> */}
+            <Rating total={item.rating} />
             <p className="text-gray-500">{totalRating} Ratings</p>
           </div>
           <div className="flex items-start gap-x-4 pr-10">
             <div className="flex flex-col-reverse ">
-              {/* {[1, 2, 3, 4, 5].map((ratingItem) => (
-                // Client Side render
-                <Rating
-                  key={ratingItem}
-                  placeholderRating={ratingItem}
-                  emptySymbol={<BsFillStarFill color="#EFF0F5" size={22} />}
-                  placeholderSymbol={
-                    <BsFillStarFill color="#FACA51" size={22} />
-                  }
-                  readonly
-                />
-              ))} */}
+              <Rating total={item.rating} />
             </div>
             <div className="flex flex-col-reverse mt-1">
               {[2, 3, 0, 26, 51].map((ratingCountItem, index) => (

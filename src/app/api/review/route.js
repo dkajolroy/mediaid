@@ -12,6 +12,11 @@ export async function GET(req) {
     // Limit 10 + load more +10
     const reviews = await reviewModel
       .find({ product: productId })
+      .populate({
+        path: "user",
+        model: "users",
+        select: "name _id email paymentVerified",
+      })
       .limit(limit || 10);
     const review = await reviewModel.find({ product: productId });
 
