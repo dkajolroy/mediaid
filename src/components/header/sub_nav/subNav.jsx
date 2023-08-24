@@ -13,7 +13,8 @@ const SubNav = () => {
 
             <div className="col-start-3 col-end-13 flex w-full justify-between">
                 <div className="flex items-center gap-7">
-                    <Link href="/dashboard">
+                    {/* Test  */}
+                    <Link href="/account">
                         <div className="cursor-pointer flex items-center gap-1 hover:outline outline-teal-400 rounded-sm p-1">
                             <BiPhoneCall className="w-3 h-3" />
                             <p className="text-sm text-green-600 font-extrabold ">

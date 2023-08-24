@@ -7,6 +7,7 @@ const productSchema = new Schema(
     thumbnail: { type: String, required: true },
     images: { type: Array, required: true },
     brand: { type: mongoose.Schema.ObjectId, ref: "brands" },
+    highlight: { type: Schema.ObjectId, ref: "highlights" },
     category: {
       type: mongoose.Schema.ObjectId,
       ref: "categories",

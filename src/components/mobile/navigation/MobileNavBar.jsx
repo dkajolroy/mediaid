@@ -4,17 +4,19 @@ import Link from "next/link";
 import { BiCartAdd } from "react-icons/bi";
 import { BsChevronDown } from "react-icons/bs";
 
+import SearchBar from "@/components/header/search/SearchBar";
 import { ToggleContext } from "@/provider/contextProvider";
+import { useRouter } from "next/navigation";
 import { useContext } from "react";
 import { FaSignInAlt } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import { useSelector } from "react-redux";
-import SearchBar from "../../header/search/SearchBar";
 import MobileSidebar from "./MobileSidebar";
 
 const MobileNav = () => {
   const { data, setData } = useContext(ToggleContext)
   const { cartItems } = useSelector(s => s.cartState)
+  const { replace, push } = useRouter()
 
   function toggleLoginModal() {
 
@@ -36,7 +38,7 @@ const MobileNav = () => {
             </Link>
             <div className="flex items-center rounded-md  ">
               <p className="mr-1 text-[12px] md:text-base">
-                Deliver To <span className="font-semibold">Bangladesh</span>{" "}
+                Deliver To <span className="font-semibold">Bangladesh</span>
               </p>
               <BsChevronDown className="text-[10px]" />
             </div>
@@ -45,13 +47,15 @@ const MobileNav = () => {
         <div className="flex justify-around items-center gap-4 mr-2 relative">
           {/* account login */}
           <button
-            onClick={toggleLoginModal}
-            className="px-3 py-1 md:hidden rounded-xl bg-slate-100 flex items-center"
+            onClick={() => {
+              replace(`/?signin=user`)
+              window.login_modal_1.showModal()
+            }}
+            className="px-3 py-1 md:hidden rounded-xl bg-slate-100 hover:bg-slate-200 transition flex items-center"
           >
-            <FaSignInAlt className="w-5 h-5 mr-1" /> {/* Sign In icon */}
+            <FaSignInAlt size={18} className="text-gray-500 mr-1" /> {/* Sign In icon */}
             <p>Sign In</p>
           </button>
-
           {/* Cart Icon */}
           <div className="relative">
             <button>
@@ -74,29 +78,7 @@ const MobileNav = () => {
       <div>
         <SearchBar />
       </div>
-      {/* login modal */}
-      {/* {loginModalOpen && (
-        <div className="fixed h-screen w-full z-[100] md:hidden">
-          <label
-            className="fixed h-screen z-[59] top-0  w-full bg-black bg-opacity-30 lg:hidden"
-          ></label>
-          <MobileModal
-            toggleLoginModal={toggleLoginModal}
-            toggleEmailLoginModal={toggleEmailLoginModal}
-          ></MobileModal>
-        </div>
-      )} */}
-      {/* Email login modal */}
-      {/* <div className="fixed h-screen w-full z-[100] md:hidden">
-        <label
-          onClick={toggleEmailLoginModal}
-          className="fixed h-screen z-[59] top-0  w-full bg-black bg-opacity-30 lg:hidden"
-        ></label>
-        <MobileEmailLogin
-          toggleEmailLoginModal={toggleEmailLoginModal}
-        ></MobileEmailLogin>
-      </div> */}
-      {/* drawer for mobile devices */}
+      {/* Sidebars */}
       {data.mobileSidebar ? (
         <MobileSidebar />
       ) : null}

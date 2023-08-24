@@ -2,7 +2,7 @@
 import { useSession } from "next-auth/react"
 import { IoLocationOutline } from 'react-icons/io5'
 
-function UserInfo() {
+function DeliverData() {
     const { data, } = useSession()
     if (!data) {
         return <div className="cursor-pointer hover:outline flex flex-col justify-center rounded-sm outline-teal-400 p-[2px]">
@@ -31,4 +31,4 @@ function UserInfo() {
     }
 }
 
-export default UserInfo
+export default DeliverData

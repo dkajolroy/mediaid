@@ -1,3 +1,4 @@
+import AuthModal from "@/components/auth/authModal"
 import Header from "@/components/header/header"
 import SubNav from "@/components/header/sub_nav/subNav"
 import MobileNavBar from "@/components/mobile/navigation/MobileNavBar"
@@ -17,6 +18,8 @@ function Layout({ children }) {
                     <Header />
                     <SubNav />
                 </div>
+
+                <AuthModal />
                 {/* for render only mobile devices */}
                 <div className="md:hidden">
                     <MobileNavBar />

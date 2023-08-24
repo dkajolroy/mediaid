@@ -38,14 +38,14 @@ const SearchBar = () => {
   // Search handler 
   const [searchData, setSearchData] = useState("")
   const searchText = searchData.trim();
-  const { products, loading } = useSearch(searchText, selectedCategory._id) // Search Request handler
+  const { products, loading } = useSearch(searchText, !searchText ? null : selectedCategory._id) // Search Request handler
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 666px)' })  // Responsive query 
 
 
   return (
     <div >
       <div className="mt-4 rounded-sm outline-transparent relative mb-1 lg:mb-0  z-20">
-        <div className="flex items-center justify-between mx-1 my-2 rounded-md bg-gray-100">
+        <div className="flex  mx-1 my-2 rounded-md bg-gray-100">
 
           {/*  Select categoryList Dropdown */}
           <div onClick={() => setIsSearchList(false)} className="dropdown ">
@@ -54,7 +54,7 @@ const SearchBar = () => {
               className="flex items-center px-2 py-2 rounded-l-md text-white cursor-pointer gap-1 h-full w-full bg-[#60B8A6]"
             >
               <p className="cursor-pointer capitalize text-sm">
-                {isLoading ? "Loading..." : isTabletOrMobile ? defaultCategory.name.slice(0, 3) : selectedCategory.name}
+                {isLoading ? "Loading..." : isTabletOrMobile ? `${selectedCategory.name.slice(0, 6)}...` : selectedCategory.name}
               </p>
               <BiSolidDownArrow className="inline-block" size={10} />
             </div>
@@ -93,11 +93,13 @@ const SearchBar = () => {
           <input
             tabIndex={0}
             ref={inputRef}
-            className={`appearance-none bg-gray-100 text-gray-700 px-4 py-[7px] leading-tight outline-none focus:outline-none focus:bg-white grow w-full md:w-auto`}
+            className={`appearance-none bg-gray-100 focus:border-gray-200  transition border border-gray-100 text-gray-700 px-4 py-[7px] leading-tight focus:outline-none  grow `}
             type="text"
             onChange={({ target }) => setSearchData(target.value)}
             placeholder={categories && categories[placeholderIndex].name}
-            onFocus={() => setIsSearchList(true)}
+            onFocus={() => {
+              setIsSearchList(true)
+            }}
           />
           <div className="px-3 py-2 cursor-pointer bg-[#60B8A6] text-white rounded-r-md">
             <FiSearch size={20} />
@@ -106,7 +108,7 @@ const SearchBar = () => {
 
         {/* Search Suggest modal */}
         {isSearchList && (
-          <div className="hidden absolute min-h-12 p-2 top-0 mt-12 bg-white shadow-teal-500 rounded-sm shadow-2xl w-full md:flex flex-col z-50">
+          <div className=" absolute min-h-12 p-2 top-0 mt-12 bg-white shadow-teal-500 rounded-sm shadow-2xl w-full md:flex flex-col z-50">
             {
               loading ?
                 [...Array(5).keys()].map(i => (

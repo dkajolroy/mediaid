@@ -1,4 +1,6 @@
+import userModel from "@/models/userModel";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
+import bcrypt from "bcrypt";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import clientPromise from "./mognoAdapter";
@@ -17,13 +19,53 @@ export const authOption = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        const user = { id: "1", name: "J Smith", email: "jsmith@example.com" };
-
-        if (user) {
-          return user;
-        } else {
+        if (!credentials?.username || !credentials?.password) {
           return null;
         }
+        // find user
+        const findUser = await userModel.findOne({
+          $or: [
+            { username: credentials.username },
+            { email: credentials.username },
+          ],
+        });
+        // check user availability
+        if (!findUser) {
+          return null;
+        }
+        // check password match or not
+        if (
+          !findUser.password ||
+          !(await bcrypt.compare(credentials.password, findUser.password))
+        ) {
+          return null;
+        }
+        // Extract user data
+        const {
+          name,
+          _id,
+          email,
+          image,
+          password,
+          typeOfUser,
+          phoneVerified,
+          paymentVerified,
+          gender,
+          dateOfBirth,
+        } = findUser;
+        // Return Data
+        return {
+          _id,
+          name,
+          email,
+          image,
+          password,
+          typeOfUser,
+          phoneVerified,
+          paymentVerified,
+          gender,
+          dateOfBirth,
+        };
       },
     }),
   ],

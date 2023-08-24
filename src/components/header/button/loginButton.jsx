@@ -5,16 +5,16 @@ import { useEffect } from 'react'
 
 function LoginButton() {
     const { status, data } = useSession()
+    const { replace, push } = useRouter()
 
     const query = useSearchParams()
     const isOpen = query.get("signin")
 
     useEffect(() => {
         if (isOpen === "user" && status === "unauthenticated") {
-            window.login_modal_1.showModal()
+            window.login_modal_1?.showModal()
         }
     }, [isOpen, status])
-    const { replace, push } = useRouter()
 
     if (data && status === "authenticated") {
         return (
@@ -31,7 +31,7 @@ function LoginButton() {
                 replace(`/?signin=user`)
                 window.login_modal_1.showModal()
             }}
-                className="cursor-pointer hover:outline rounded-sm outline-teal-400 p-[2px] ">
+                className="cursor-pointer hover:outline text-center rounded-sm outline-teal-400 p-[2px] ">
                 <p className="font-semibold text-sm text-slate-600">Sign in/Register</p>
 
                 <p className="font-bold text-base text-teal-500">Account & Lists</p>

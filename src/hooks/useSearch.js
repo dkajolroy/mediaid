@@ -3,8 +3,9 @@ import useSWR from "swr";
 
 export const useSearch = (text, category) => {
   // Category ID and search Text
+  const categoryPath = `&category=${category}`;
   const { data, isLoading, error } = useSWR(
-    `/api/search?keyword=${text}&category=${category}`,
+    `/api/search?keyword=${text}${category ? categoryPath : ""}`,
     fetcher,
     { revalidateOnFocus: false }
   );

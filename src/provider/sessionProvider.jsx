@@ -1,8 +1,12 @@
 'use client'
-import { SessionProvider as Provider } from 'next-auth/react'
+import { SessionProvider as Provider } from 'next-auth/react';
+import { Toaster } from 'react-hot-toast';
 function SessionProvider({ children }) {
     return (
-        <Provider>{children}</Provider>
+        <Provider>
+            <Toaster />
+            {children}
+        </Provider>
     )
 }
 

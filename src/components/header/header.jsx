@@ -3,8 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import CartButton from "./button/cartButton";
 import LoginButton from "./button/loginButton";
-import UserInfo from "./logedInfo/userInfo";
-import LoginModal from "./login/loginModal";
+import DeliverData from "./deliverInfo/deliverData";
 import SearchBar from "./search/SearchBar";
 const Header = () => {
 
@@ -23,7 +22,7 @@ const Header = () => {
                         />
                     </Link>
                 </div>
-                <UserInfo />
+                <DeliverData />
             </div>
             <div className="grow">
                 <SearchBar />
@@ -31,7 +30,7 @@ const Header = () => {
             <div className="col-span-3 flex gap-4 justify-center items-center">
                 <LoginButton />
                 <Link
-                    href=""
+                    href="/order"
                     className=" cursor-pointer hover:outline rounded-sm outline-teal-400 p-[2px] ">
                     <p className="font-semibold text-sm text-slate-600">Returns</p>
 
@@ -39,7 +38,6 @@ const Header = () => {
                 </Link>
                 <CartButton />
             </div>
-            <LoginModal />
         </div>
     );
 };

@@ -12,11 +12,15 @@ const Categories = () => {
     <ul className="space-y-2">
       {
         isLoading ?
-          [...Array(10).keys()].map((x) => (
-            <li key={x}>
-              <CategoriesLoader />
-            </li>
-          ))
+          <div className='flex flex-col gap-5'>
+            {
+              [...Array(15).keys()].map((x) => (
+                <li key={x}>
+                  <CategoriesLoader />
+                </li>
+              ))
+            }
+          </div>
           : categories?.map((item, i) => {
             return (
               <li key={i} className="flex gap-2 h-[40px] items-center cursor-pointer lg:px-2 xl:px-3 py-1 rounded hover:bg-slate-100">
