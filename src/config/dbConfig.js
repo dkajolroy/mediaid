@@ -9,10 +9,10 @@ if (!MONGODB_URI) {
     "Please define the MONGODB_URI environment variable inside .env.local"
   );
 }
-function dbConnect() {
+async function dbConnect() {
   if (connection.readyState < 1) {
     try {
-      connect(MONGODB_URI);
+      await connect(MONGODB_URI);
       console.log("Database⚡:: ✅ Connected !!");
     } catch (error) {
       console.log("Database⚡:: ❌ Failed to connect !");

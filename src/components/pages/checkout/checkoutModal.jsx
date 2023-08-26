@@ -1,8 +1,18 @@
+'use client'
+import { payment_method } from '@/constant/payment_method'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
 import { GrMapLocation } from 'react-icons/gr'
 import PaymentMethod from './PaymentMethod'
 function CheckoutModal() {
+
+    const [openAccordion, setOpenAccordion] = useState(null)
+    function handleAccordionClick(typeOfMethod) {
+        setOpenAccordion(typeOfMethod)
+        // working payment
+
+    }
     return (
         <dialog id="my_modal_4" className="modal">
             <form method="dialog" className="modal-box">
@@ -41,29 +51,36 @@ function CheckoutModal() {
                         <p>৳ 360</p>
                     </div>
                     <div className="my-4 px-1">
+                        {/* Statics two methods */}
                         <PaymentMethod
                             title="Credit/Debit card & Mobile banking Payment"
                             paymentIconLink="https://i.ibb.co/jkFXfsb/sslcz-verified.png"
-                            isOpen={"SSLCommerz"}>
+                            isOpen={openAccordion === "SSL_COMMERZ"}
+                            onClick={() => handleAccordionClick("SSL_COMMERZ")}>
                             <p>
                                 Pay securely by Credit/Debit card, Internet banking or Mobile
                                 banking through SSLCommerz and get 10% discount on selective
                                 bank cards.
                             </p>
+
                         </PaymentMethod>
                         <PaymentMethod
                             title="Cash on delivery"
                             paymentIconLink="https://i.ibb.co/pKrnkm6/cash-on-delivery-1.png"
-                            isOpen={"cashOnDelivery"}>
+                            isOpen={openAccordion === "CASH_ON_DELIVERY"}
+                            onClick={() => handleAccordionClick("CASH_ON_DELIVERY")}>
                             <p>
                                 Pay with cash upon delivery. Need to pay 200 Taka in advance
                                 for Cash on Delivery outside Dhaka.
                             </p>
                         </PaymentMethod>
-                        {/* {paymentFieldData.map((item) => (
+                        {/* Dynamic methods */}
+                        {payment_method.map((item) => (
                             <div key={item.id}>
                                 <PaymentMethod
                                     title={item.name}
+                                    isOpen={openAccordion === item.name}
+                                    onClick={() => handleAccordionClick(item.name)}
                                     paymentIconLink={item.logoUrl}>
                                     <div>
                                         <p className="text-sm text-gray-600">
@@ -103,7 +120,7 @@ function CheckoutModal() {
                                     </div>
                                 </PaymentMethod>
                             </div>
-                        ))} */}
+                        ))}
                     </div>
                     <div className="w-[420px] p-2">
                         <p className="text-sm text-gray-600">

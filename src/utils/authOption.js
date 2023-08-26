@@ -1,9 +1,12 @@
+import dbConnect from "@/config/dbConfig";
 import userModel from "@/models/userModel";
-import { MongoDBAdapter } from "@auth/mongodb-adapter";
+import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import bcrypt from "bcrypt";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import clientPromise from "./mognoAdapter";
+dbConnect();
+
 export const authOption = {
   adapter: MongoDBAdapter(clientPromise),
   providers: [
@@ -15,8 +18,8 @@ export const authOption = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "jsmith" },
-        password: { label: "Password", type: "password" },
+        username: { label: "Username", type: "text", placeholder: "Username" },
+        password: { label: "Password", type: "Password" },
       },
       async authorize(credentials, req) {
         if (!credentials?.username || !credentials?.password) {

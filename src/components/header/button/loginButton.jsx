@@ -9,6 +9,7 @@ function LoginButton() {
 
     const query = useSearchParams()
     const isOpen = query.get("signin")
+    const product = query.get("product") // for product page
 
     useEffect(() => {
         if (isOpen === "user" && status === "unauthenticated") {
@@ -28,8 +29,12 @@ function LoginButton() {
     } else {
         return (
             <div onClick={() => {
-                replace(`/?signin=user`)
-                window.login_modal_1.showModal()
+                if (product) {
+                    replace(`?product=${product}&signin=user`)
+                } else {
+                    replace(`?signin=user`)
+                    window.login_modal_1.showModal()
+                }
             }}
                 className="cursor-pointer hover:outline text-center rounded-sm outline-teal-400 p-[2px] ">
                 <p className="font-semibold text-sm text-slate-600">Sign in/Register</p>

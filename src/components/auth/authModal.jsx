@@ -1,23 +1,24 @@
 'use client'
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useRef, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 import LoginForm from './loginForm';
 import RegisterForm from './registerForm';
 
 const AuthModal = () => {
-  // const { data , setData } = useContext(ToggleContext)
   const [isSignUp, setIsSignUp] = useState(false)
   const { replace } = useRouter()
   const pathname = usePathname()
   const closeBtnRef = useRef(null)
+  // If product view
+  const query = useSearchParams()
+  const product = query.get("product")
 
 
   return (
     <dialog id="login_modal_1" className="modal ">
       <Toaster />
       <form method="dialog" className="modal-box">
-        {/* <LoginMethods desktop={true}></LoginMethods> */}
         <div className="w-full h-full py-2">
           <h1 className="text-base md:text-lg font-bold text-black">
             {isSignUp ? "Sign Up please" : "Sign In please"}
@@ -44,10 +45,13 @@ const AuthModal = () => {
         {/* Close Modal Buton */}
         <button ref={closeBtnRef} onClick={() => {
           setIsSignUp(false)
-          replace(`${pathname}`)
+          if (product) {
+            replace(`?product=${product}`)
+          } else {
+            replace(`${pathname}`)
+          }
         }} className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
       </form>
-      {/* <DesktopEmailLogin /> */}
     </dialog>
   );
 };

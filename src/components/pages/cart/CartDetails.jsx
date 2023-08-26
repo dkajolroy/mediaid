@@ -3,7 +3,9 @@
 import CartProduct from "@/components/product/cart/cartProduct";
 import { ToggleContext } from "@/provider/contextProvider";
 import { discountCalculator } from "@/utils/generator";
-import { useContext } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { memo, useContext } from "react";
 import { IoMdClose } from 'react-icons/io';
 import { useSelector } from "react-redux";
 import CheckoutModal from "../checkout/checkoutModal";
@@ -13,6 +15,8 @@ import Subtotal from "./subtotal";
 const AbsoluteCartDetails = () => {
   const { data, setData } = useContext(ToggleContext)
   const { cartItems } = useSelector(s => s.cartState)
+  const sessionData = useSession()
+  const { push } = useRouter()
 
   // Total bills calculator
   var prices = cartItems.reduce((sum, i) => {
@@ -22,7 +26,17 @@ const AbsoluteCartDetails = () => {
     ) * i.quantity)
   }, 0)
 
+  // Conditional return
   if (data.openCart) {
+
+    function checkoutHandler() {
+      if (sessionData.status === "authenticated") {
+        window.my_modal_4.showModal()
+      } else {
+        //  goto login
+        push("/?signin=user")
+      }
+    }
     return (
       <div className="animate-popup origin-right h-[80vh] transition-all bg-white w-[360px] shadow-2xl duration-500 rounded-sm overflow-y-scroll">
         <div className="flex items-center justify-between p-1 bg-teal-700 text-white rounded-t-sm">
@@ -61,11 +75,11 @@ const AbsoluteCartDetails = () => {
         <div className="absolute bottom-0 w-full bg-white py-3 border-t-2 border-t-teal-600">
           <div className="flex items-center justify-center">
             <p className="px-2 py-2 bg-teal-600 text-white rounded-s-md">৳ {prices}</p>
-            <p
-              onClick={() => window.my_modal_4.showModal()}
+            <button
+              onClick={checkoutHandler}
               className="uppercase ml-[1px] bg-teal-600 px-2 py-2 text-white rounded-e-md cursor-pointer">
               proceed to checkout
-            </p>
+            </button>
           </div>
         </div>
         <CheckoutModal />
@@ -74,4 +88,4 @@ const AbsoluteCartDetails = () => {
   }
 };
 
-export default AbsoluteCartDetails;
+export default memo(AbsoluteCartDetails);
