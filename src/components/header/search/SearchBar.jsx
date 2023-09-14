@@ -3,6 +3,7 @@ import SearchProductLoader from "@/components/loader/searchProductLoader";
 import SearchedProduct from "@/components/product/search/searchedProduct";
 import { useCategories } from "@/hooks/useCategories";
 import { useSearch } from "@/hooks/useSearch";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { BiSolidDownArrow } from "react-icons/bi";
 import { FiSearch } from "react-icons/fi";
@@ -41,6 +42,15 @@ const SearchBar = () => {
   const { products, loading } = useSearch(searchText, !searchText ? null : selectedCategory._id) // Search Request handler
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 666px)' })  // Responsive query 
 
+
+  const { push } = useRouter()
+  // Search page handler
+  function searchHandler() {
+    if (searchText) {
+      push(`/shop?search=${searchText}`)
+      setIsSearchList(false)
+    }
+  }
 
   return (
     <div >
@@ -93,6 +103,7 @@ const SearchBar = () => {
           <input
             tabIndex={0}
             ref={inputRef}
+            onKeyUp={(e) => e.key === "Enter" && searchHandler()}
             className={`appearance-none bg-gray-100 focus:border-gray-200  transition border border-gray-100 text-gray-700 px-4 py-[7px] leading-tight focus:outline-none  grow `}
             type="text"
             onChange={({ target }) => setSearchData(target.value)}
@@ -101,7 +112,9 @@ const SearchBar = () => {
               setIsSearchList(true)
             }}
           />
-          <div className="px-3 py-2 cursor-pointer bg-[#60B8A6] text-white rounded-r-md">
+          <div
+            onClick={searchHandler}
+            className="px-3 py-2 cursor-pointer bg-[#60B8A6] text-white rounded-r-md">
             <FiSearch size={20} />
           </div>
         </div>

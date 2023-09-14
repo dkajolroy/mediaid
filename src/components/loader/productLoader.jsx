@@ -1,5 +1,5 @@
 
-function FlashSelling() {
+function ProductLoader() {
     return (
         <div role="status" className="max-w-sm p-1 rounded shadow animate-pulse  dark:border-gray-700">
             <div className="flex items-center justify-center h-32 mb-2 bg-gray-300 rounded dark:bg-gray-700">
@@ -17,4 +17,4 @@ function FlashSelling() {
     )
 }
 
-export default FlashSelling
+export default ProductLoader

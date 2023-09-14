@@ -3,11 +3,26 @@ const { Schema, model, mongoose, models } = require("mongoose");
 const productSchema = new Schema(
   {
     title: { type: String, required: true },
-    price: { type: Number, required: true },
+    regularPrice: { type: Number, required: true },
+    vipPrice: { type: Number, required: true },
+    regularDiscountPercent: {
+      type: Number,
+      required: true,
+      default: 0,
+      max: 100,
+      min: 0,
+    },
+    vipDiscountPercent: {
+      type: Number,
+      required: true,
+      default: 0,
+      max: 100,
+      min: 0,
+    },
     thumbnail: { type: String, required: true },
     images: { type: Array, required: true },
     brand: { type: mongoose.Schema.ObjectId, ref: "brands" },
-    highlight: { type: Schema.ObjectId, ref: "highlights" },
+    highlight: { type: Array },
     category: {
       type: mongoose.Schema.ObjectId,
       ref: "categories",
@@ -40,13 +55,6 @@ const productSchema = new Schema(
     addedBy: { type: Schema.ObjectId, required: true, ref: "admins" },
     availableStock: { type: Number, required: true, default: 0 },
     tag: { type: Array, required: true },
-    discountPercent: {
-      type: Number,
-      required: true,
-      default: 0,
-      max: 100,
-      min: 0,
-    },
   },
   { timestamps: true }
 );
