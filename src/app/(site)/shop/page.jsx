@@ -1,7 +1,8 @@
 'use client'
 import ProductLoader from "@/components/loader/productLoader";
 import FlashSellingProduct from "@/components/product/flashSale/FlashSellingProduct";
-import { useFilter } from "@/hooks/useFilteredProduct";
+import { useSearch } from "@/hooks/useSearch";
+import { useState } from "react";
 
 function Page({ searchParams }) {
     const searchText = searchParams.search;
@@ -10,9 +11,15 @@ function Page({ searchParams }) {
     // maxPrice
     // minPrice
     // rating
-    const query = `keyword=${searchText}`
+    const defaultCategory = {
+        _id: "",
+        name: "All Departments",
+        image: ""
+    }
+    const [selectedCategory, setSelectedCategory] = useState(defaultCategory)
 
-    const { products, error, loading } = useFilter(query)
+    // const { products, error, loading } = useFilter(query)
+    const { products, loading, error } = useSearch(searchText, !searchText ? null : selectedCategory._id)
 
     if (error) {
         return <div className="min-h-[60vh] flex justify-center items-center">
