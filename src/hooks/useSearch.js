@@ -2,6 +2,7 @@ import { fetcher } from "@/utils/api_config";
 import useSWR from "swr";
 
 export const useSearch = (text, category) => {
+  console.log(text);
   // Category ID and search Text
   const categoryPath = `&category=${category}`;
   const { data, isLoading, error } = useSWR(
