@@ -20,6 +20,7 @@ function Page({ searchParams }) {
 
     // const { products, error, loading } = useFilter(query)
     const { products, loading, error } = useSearch(searchText, !searchText ? null : selectedCategory._id)
+    console.log(products, loading, error)
 
     if (error) {
         return <div className="min-h-[60vh] flex justify-center items-center">
