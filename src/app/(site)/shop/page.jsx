@@ -2,20 +2,17 @@
 import ProductLoader from "@/components/loader/productLoader";
 import FlashSellingProduct from "@/components/product/flashSale/FlashSellingProduct";
 import { useFilter } from "@/hooks/useFilteredProduct";
-import { useSelector } from "react-redux";
 
 function Page({ searchParams }) {
     const searchText = searchParams.search;
-    const { filter } = useSelector(s => s.filterState)
     // category
     // inStock
     // maxPrice
     // minPrice
     // rating
-    const query = `keyword=${searchText}&min=${filter.minPrice}${filter.maxPrice ? `&max=${filter.maxPrice}` : ''}${filter.inStock ? "&inStock=true" : ''}${filter.category ? `&category=${filter.category}` : ''}`
+    const query = `keyword=${searchText}`
 
     const { products, error, loading } = useFilter(query)
-    // console.log(products)
 
     if (error) {
         return <div className="min-h-[60vh] flex justify-center items-center">

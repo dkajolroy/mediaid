@@ -3,11 +3,11 @@ import { NextResponse } from "next/server";
 
 export async function GET(req) {
   const keyword = req.nextUrl.searchParams.get("keyword");
-  const category = req.nextUrl.searchParams.get("category"); //null or id
-  const min = req.nextUrl.searchParams.get("min");
-  const max = req.nextUrl.searchParams.get("max");
-  const inStock = req.nextUrl.searchParams.get("inStock");
-  const limit = req.nextUrl.searchParams.get("limit");
+  // const category = req.nextUrl.searchParams.get("category"); //null or id
+  // const min = req.nextUrl.searchParams.get("min");
+  // const max = req.nextUrl.searchParams.get("max");
+  // const inStock = req.nextUrl.searchParams.get("inStock");
+  // const limit = req.nextUrl.searchParams.get("limit");
 
   // console.log(keyword, category, min, max, inStock, limit);
 
@@ -18,11 +18,9 @@ export async function GET(req) {
         $or: [
           { title: { $regex: keyword, $options: "i" } },
           { tag: { $in: keyword } },
-          { regularPrice: { $lte: min } },
-          { regularPrice: { $gte: max } },
         ],
       })
-      .limit(8);
+      .limit(12);
     return NextResponse.json({ success: true, products });
   } catch (error) {
     return NextResponse.json(
