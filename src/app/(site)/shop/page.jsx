@@ -35,7 +35,7 @@ function Page({ searchParams }) {
                             <ProductLoader key={item} />
                         )}
                     </div>
-                    : products && products.length ?
+                    : products.length ?
                         <div>
                             <div className="grid grid-cols-5">
                                 {products.map((item, i) =>
