@@ -18,8 +18,8 @@ function Page({ searchParams }) {
     // console.log(products)
 
     if (error) {
-        return <div className="min-h-screen flex justify-center items-center">
-            <span className="text-2xl">Something want wrong !</span>
+        return <div className="min-h-[60vh] flex justify-center items-center">
+            <span className="text-2xl text-gray-500">Something want wrong !</span>
         </div>
     }
     return (
@@ -32,13 +32,20 @@ function Page({ searchParams }) {
                         )}
                     </div>
                     : products && products.length ?
-                        <div className="grid grid-cols-5">
-                            {products.map((item, i) =>
-                                <FlashSellingProduct item={item} key={i} />
-                            )}
-                        </div> :
                         <div>
-                            <span className="text-2xl">Product not found</span>
+                            <div className="grid grid-cols-5">
+                                {products.map((item, i) =>
+                                    <FlashSellingProduct item={item} key={i} />
+                                )}
+                            </div>
+                            <div className="flex justify-center my-5">
+                                <button
+                                    disabled={products.length < 15}
+                                    className="bg-[#60b7a5] disabled:bg-[#60b7a5] disabled:cursor-not-allowed hover:bg-[#509e8e] transition text-white rounded py-1 px-5">Load more</button>
+                            </div>
+                        </div> :
+                        <div className="flex h-full min-h-[60vh] justify-center items-center">
+                            <span className="text-2xl text-gray-500">Product not found</span>
                         </div>
             }
         </div>

@@ -32,7 +32,7 @@ const Filter = () => {
           </p>
         </div>
         <RatingFilter />
-        <div className='xl:p-3 '>
+        <div >
           <h1 className="text-sm font-semibold">Categories</h1>
           <Categories />
         </div>

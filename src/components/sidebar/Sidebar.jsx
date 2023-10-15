@@ -7,13 +7,20 @@ const Sidebar = () => {
 
   const path = usePathname()
 
-  return (
-    <> <div className='xl:p-3 '>
-      {path == '/shop' && <Filter />}
-      {path == '/shop' || <Categories />}
-    </div>
-    </>
-  );
+  if (path === '/shop') {
+    return (
+      <div className='xl:p-3 '>
+        <Filter />
+      </div>
+    );
+  } else {
+    return (
+      <div className='xl:p-3 '>
+        <Categories />
+      </div>
+    );
+
+  }
 };
 
 export default Sidebar;

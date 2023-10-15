@@ -24,12 +24,12 @@ const Categories = () => {
           : categories?.map((item, i) => {
             return (
               <li key={i} className="flex gap-2 h-[40px] items-center cursor-pointer lg:px-2 xl:px-3 py-1 rounded hover:bg-slate-100">
-                <div className="w-7 h-7">
-                  {
-                    item.image &&
-                    <Image src={item.image} width={30} height={30} className='w-auto h-auto' alt="a" />
-                  }
-                </div>
+                {
+                  item.image &&
+                  <>
+                    <Image src={item.image} width={30} height={30} className='w-auto max-h-full' alt="a" />
+                  </>
+                }
 
                 <h3 className={`text-sm transition-all origin-left ${data.sidebarCollapse ? "invisible scale-0" : "visible scale-100"}`}>
                   {item.name}

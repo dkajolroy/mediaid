@@ -4,7 +4,6 @@ const productSchema = new Schema(
   {
     title: { type: String, required: true },
     regularPrice: { type: Number, required: true },
-    vipPrice: { type: Number, required: true },
     regularDiscountPercent: {
       type: Number,
       required: true,
